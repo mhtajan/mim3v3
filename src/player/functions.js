@@ -47,7 +47,8 @@ const volume    = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getP
 const nonStop   = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.autoLeave=!p.autoLeave, p.autoPlay=!p.autoPlay, i.reply(`Non-stop mode is now **${p.autoLeave?"enabled":"disabled"}**`));
 const clearQueue= i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.queue.clear(),   i.reply("Queue cleared."));
 const shuffle   = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.queue.shuffle(), i.reply("Queue shuffled."));
-const getQueue = i => (p = getPlayer(i)) ? p.queue : p.queue;
+const getQueue=i=>(p=getPlayer(i))?p.queue:null;
+const queue=async i=>{const q=getQueue(i);if(!q)return null;const s=10,m=Math.max(1,Math.ceil(q.tracks.length/s)-1);setup(await i.reply({embeds:[queueEmbed(q,0,s)],components:[row(0,m)],ephemeral:true}),i,q,s);};
 const eightD    = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.filters.setRotation({rotationHz: 0.2}), i.reply(`8D mode is now enabled.`));
 const disable8D = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.filters.setRotation({rotationHz: 0}), i.reply("8D mode disabled."));
 const bassBoost = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.filters.setEqualizer([{band:0,gain:0.6},{band:1,gain:0.7},{band:2,gain:0.8},{band:3,gain:0.55},{band:4,gain:0.25}])
@@ -56,12 +57,6 @@ const disableBassBoost = i => checkVoiceChannel(i) && checkNodeConnection(i) && 
 const autoLeave = i => checkVoiceChannel(i) && checkNodeConnection(i) && (p=getPlayer(i)) && (p.setAutoLeave=!p.setAutoLeave, i.reply(`Auto-leave is now **${p.setAutoLeave?"enabled":"disabled"}**`));
 
 
-async function queue(i){
-  const q=getQueue(i); 
-  const s=10,m=Math.max(1,Math.ceil(q.tracks.length/s)-1);
-  const msg=await i.reply({embeds:[queueEmbed(q,0,s)],components:[row(0,m)],ephemeral:true});
-  setup(msg,i,q,s);
-}
 
 const stat = i => {
   const s = client.moonlink.nodes.get("default").getSystemStats();

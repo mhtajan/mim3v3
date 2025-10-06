@@ -42,5 +42,5 @@ client.moonlink.on("trackStart", async (p, t) => {
 
 client.moonlink.on("trackEnd", () => client.user.setPresence({status:"online"}));
 
-module.exports = { nowPlaying };
+
 
