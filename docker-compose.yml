@@ -1,4 +1,6 @@
-  discord-bot:
+services:
+  app:
     build:
       context: ./
     restart: always
+    
