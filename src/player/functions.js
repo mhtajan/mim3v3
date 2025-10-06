@@ -75,7 +75,9 @@ const stat = i => {
 const commands = { 
   play, pause, queue, resume, skip, stop, volume,
   "non-stop": nonStop, "clear-queue": clearQueue,
-  stat, shuffle 
+  stat, shuffle, "8d": eightD, "disable-8d": disable8D,
+  "bass-boost": bassBoost, "disable-bass-boost": disableBassBoost,
+  "auto-leave": autoLeave
 };
 
 module.exports = async function handleInteraction(i) {
