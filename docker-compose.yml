@@ -3,4 +3,5 @@ services:
     build:
       context: ./
     restart: always
-    
+    env_file:
+      - stack.env
