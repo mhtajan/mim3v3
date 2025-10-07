@@ -6,8 +6,8 @@ module.exports = client => {
       {
         identifier: "node_1",
         host: process.env.LAVALINK_HOST,
-        password: "youshallnotpass",
-        port: 2333,
+        password: process.env.LAVALINK_PASSWORD,
+        port: process.env.LAVALINK_PORT,
         secure: false,
       },
     ],
